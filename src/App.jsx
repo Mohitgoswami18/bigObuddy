@@ -1,30 +1,63 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const App = () => {
 
-  const [choice, setChoice] = useState('')
+  //**************************** This is for managing states and variables ****************************//
+
+  const [choice, setChoice] = useState(false);
+  const [key, setKey] = useState("");
+  const [error, setError] = useState("");
+  const [selected, setSelected] = useState(false);
+
+  const handleSubmit = ()=> {
+    if(key === "") {
+      setError("Enter a Key first");
+      return;
+    } else {
+      // ******************* store the api key in the local chrome browser ***************************//
+
+    }
+  }
+
+  const handleKey = (e)=> {
+    if(e.key === "Enter") {
+      handleSubmit();
+    }
+  }
+
   return (
-    <div>
-      <h1>How you would like to continue? </h1>
-      <h2>Enter you api key here</h2>
-
-      <button onClick={setChoice("withKey")}>With Personal ApiKey</button>
-      <button onClick={setChoice("withoutKey")}>With default ApiKey (limited) </button>
-
+    <div className=''>
       {
-        choice === "WithKey" ? (
-          <div> 
-            <label htmlFor="key"></label>
-            <input type="text" name='key'/>
-            <button onClick={handleSubmit}></button>
+        selected == false && (
+          <div>
+          <h1 className='font-bold text-sm '>How you would like to continue? </h1>
+          <button className='' onClick={()=>{setChoice(true),setSelected(true)}}>With Personal ApiKey</button>
+          <button onClick={()=>{setChoice(false),setSelected(true)}}>With default ApiKey (limited) </button>
           </div>
-        ):
-        (
-          <main></main> // Main logic goes here
         )
       }
-      <label htmlFor="key"> Api Key: </label>
-      <input type="text" name='key' placeholder=''/>
+
+      {
+        selected == true && (
+            <div>
+              {choice && (
+                <div> 
+                  <label htmlFor="key"></label>
+                  <input type="text"
+                  className='bg-black px-3 py-1' name='key' placeholder='enter your key'
+                  value={key}
+                  onKeyDown={(e)=>handleKey(e)}
+                  onChange={(e)=>{setKey(e.target.value)}}/>
+                  <button onClick={()=>handleSubmit()}></button>
+                </div>
+              )}
+
+              <button onClick={handleTask}>FindTimeConplexity</button>
+              <button onClick={handleTask}>FindSpaceConplexity</button>
+              <button onClick={handleTask}>GiveMeSomeHints</button>
+            </div>
+        )
+      }
     </div>
   )
 }

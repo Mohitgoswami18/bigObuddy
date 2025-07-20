@@ -13,6 +13,6 @@
       "js": ["contentScript.js"]
     }
   ],
-  "permissions": ["storage", "activeTabs", "scripting"],
+  "permissions": ["storage", "activeTab", "scripting"],
   "host_permissions": ["https://generativelanguage.googleapis.com/*"]
 }
